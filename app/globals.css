@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply 
+  py-4 px-16  bg-white rounded-full text-primary;
+}
+
+:root {
+  --primary: "#20364B";
+  --secondary: "#ffc107";
+}
+
+.correct {
+  @apply bg-red-700;
+}
+.wrong {
+  @apply bg-slate-600;
+}
