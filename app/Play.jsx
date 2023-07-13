@@ -6,6 +6,7 @@ import Question from "./Question";
 import NextButton from "./NextButton";
 import ProgressBar from "./ProgressBar";
 import Finish from "./Finish";
+import Error from "./Error";
 
 const initialState = {
   data: [],
@@ -26,6 +27,8 @@ function reducer(state, action) {
         data: action.payload,
         status: "dataReceived",
       }; //action.payload hanya utk mengambil data, dg payload: data
+    case "error":
+      return { ...state, data: action.payload };
     case "active":
       return {
         ...state,
@@ -69,9 +72,14 @@ export default function Play() {
     useReducer(reducer, initialState);
   useEffect(() => {
     async function getData() {
-      const res = await fetch("http://localhost:8000/questions");
-      const data = await res.json();
-      dispatch({ type: "dataReceived", payload: data });
+      try {
+        const res = await fetch("http://localhost:8000/questions");
+        const data = await res.json();
+        dispatch({ type: "dataReceived", payload: data });
+      } catch (e) {
+        console.log(e);
+        dispatch({ type: "error", payload: e });
+      }
     }
     getData();
   }, []);
@@ -82,6 +90,7 @@ export default function Play() {
           ReQuizz
         </h1>
         {status === "dataReceived" && <StartScreen dispatch={dispatch} />}
+        {status === "error" && <Error data={data} />}
         {status === "active" && (
           <div className=" flex flex-col">
             <ProgressBar index={index} data={data} />

@@ -11,7 +11,7 @@ export default function Question({ data, answer, dispatch, highscore }) {
         {data.options.map((option, index) => {
           return (
             <button
-              className={`py-4 px-16 rounded-full text-white ${
+              className={`py-4 px-16 rounded-full border hover:bg-slate-500  text-white ${
                 hasAnswer
                   ? index === data.correctOption
                     ? "bg-secondary "
