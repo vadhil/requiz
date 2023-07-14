@@ -93,7 +93,7 @@ export default function Play() {
         {status === "error" && <Error data={data} />}
         {status === "active" && (
           <div className=" flex flex-col">
-            <ProgressBar index={index} data={data} />
+            <ProgressBar index={index} data={data} points={points} />
             <Question
               dispatch={dispatch}
               data={data[index]}
